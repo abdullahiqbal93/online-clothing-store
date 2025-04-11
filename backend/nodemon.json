@@ -1,0 +1,6 @@
+{
+  "ignore": ["**/*.test.js", "**/*.spec.js", ".git", "node_modules"],
+  "watch": ["src"],
+  "exec": "npx kill-port 3300 && npx babel-node ./src/app.js",
+  "ext": "js,json"
+}
