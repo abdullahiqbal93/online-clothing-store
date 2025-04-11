@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { logoutUser } from "../user/userSlice";
 
 const initialState = {
   cartItems: [],
@@ -31,7 +32,12 @@ export const deleteCartItem = createAsyncThunk("cart/deleteCartItem", async ({ u
 const cartSlice = createSlice({
   name: "cartSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    clearCart: (state) => {
+      state.cartItems = [];
+      state.isLoading = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(addToCart.pending, (state) => {
@@ -77,6 +83,10 @@ const cartSlice = createSlice({
       .addCase(deleteCartItem.rejected, (state) => {
         state.isLoading = false;
         state.cartItems = [];
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.cartItems = [];
+        state.isLoading = false;
       });
   },
 });
